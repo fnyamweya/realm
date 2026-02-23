@@ -62,3 +62,21 @@ export type EventId = z.infer<typeof EventId>;
 
 export const CorrelationId = brandedIdSchema("cor");
 export type CorrelationId = z.infer<typeof CorrelationId>;
+
+export const ChargeDefinitionId = brandedIdSchema("chd");
+export type ChargeDefinitionId = z.infer<typeof ChargeDefinitionId>;
+
+export const ChargePlanId = brandedIdSchema("chp");
+export type ChargePlanId = z.infer<typeof ChargePlanId>;
+
+export const ChargeAssignmentId = brandedIdSchema("cha");
+export type ChargeAssignmentId = z.infer<typeof ChargeAssignmentId>;
+
+export const LedgerEntryId = brandedIdSchema("led");
+export type LedgerEntryId = z.infer<typeof LedgerEntryId>;
+
+export const ChargeOccurrenceId = brandedIdSchema("cho");
+export type ChargeOccurrenceId = z.infer<typeof ChargeOccurrenceId>;
+
+export const AllocationGroupId = brandedIdSchema("alg");
+export type AllocationGroupId = z.infer<typeof AllocationGroupId>;
