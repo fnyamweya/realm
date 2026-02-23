@@ -91,5 +91,9 @@ export function allocate(total: Money, rule: AllocationRule, payers: string[]): 
         amount: Money.of(s.fixedAmount ?? 0, total.currency),
       }));
     }
+    default: {
+      const _exhaustive: never = rule.method;
+      throw new Error(`Unsupported allocation method: ${_exhaustive}`);
+    }
   }
 }

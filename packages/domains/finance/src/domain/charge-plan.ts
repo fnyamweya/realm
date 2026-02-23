@@ -74,11 +74,19 @@ export class ChargePlan {
   deactivate(): void {
     if (this._data.status === ChargePlanStatus.ARCHIVED) throw new Error('Cannot deactivate archived plan');
     this._data = { ...this._data, status: ChargePlanStatus.INACTIVE, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_plan.updated',
+      payload: { chargePlanId: this._data.id, clientId: this._data.clientId, changedFields: ['status'] },
+    });
   }
 
   activate(): void {
     if (this._data.status !== ChargePlanStatus.INACTIVE) throw new Error('Can only activate inactive plans');
     this._data = { ...this._data, status: ChargePlanStatus.ACTIVE, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_plan.updated',
+      payload: { chargePlanId: this._data.id, clientId: this._data.clientId, changedFields: ['status'] },
+    });
   }
 
   getDomainEvents(): ReadonlyArray<DomainEvent> { return [...this._events]; }

@@ -68,16 +68,28 @@ export class ChargeDefinition {
   deactivate(): void {
     if (this._data.status === ChargeDefinitionStatus.ARCHIVED) throw new Error('Cannot deactivate an archived charge definition');
     this._data = { ...this._data, status: ChargeDefinitionStatus.INACTIVE, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_definition.updated',
+      payload: { chargeDefinitionId: this._data.id, clientId: this._data.clientId, changedFields: ['status'] },
+    });
   }
 
   archive(): void {
     if (this._data.status !== ChargeDefinitionStatus.INACTIVE) throw new Error('Can only archive inactive charge definitions');
     this._data = { ...this._data, status: ChargeDefinitionStatus.ARCHIVED, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_definition.updated',
+      payload: { chargeDefinitionId: this._data.id, clientId: this._data.clientId, changedFields: ['status'] },
+    });
   }
 
   activate(): void {
     if (this._data.status !== ChargeDefinitionStatus.INACTIVE) throw new Error('Can only activate inactive charge definitions');
     this._data = { ...this._data, status: ChargeDefinitionStatus.ACTIVE, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_definition.updated',
+      payload: { chargeDefinitionId: this._data.id, clientId: this._data.clientId, changedFields: ['status'] },
+    });
   }
 
   getDomainEvents(): ReadonlyArray<DomainEvent> { return [...this._events]; }

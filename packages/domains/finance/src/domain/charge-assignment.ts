@@ -92,11 +92,19 @@ export class ChargeAssignment {
   suspend(): void {
     if (this._data.status !== ChargeAssignmentStatus.ACTIVE) throw new Error('Can only suspend active assignments');
     this._data = { ...this._data, status: ChargeAssignmentStatus.SUSPENDED, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_assignment.suspended',
+      payload: { chargeAssignmentId: this._data.id, clientId: this._data.clientId },
+    });
   }
 
   resume(): void {
     if (this._data.status !== ChargeAssignmentStatus.SUSPENDED) throw new Error('Can only resume suspended assignments');
     this._data = { ...this._data, status: ChargeAssignmentStatus.ACTIVE, updatedAt: new Date().toISOString() };
+    this._events.push({
+      eventType: 'finance.charge_assignment.resumed',
+      payload: { chargeAssignmentId: this._data.id, clientId: this._data.clientId },
+    });
   }
 
   isActiveAt(date: string): boolean {

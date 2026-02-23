@@ -152,6 +152,10 @@ export function generatePeriods(
         periodEnd.setUTCFullYear(periodEnd.getUTCFullYear() + spec.interval);
         break;
       }
+      default: {
+        const _exhaustive: never = spec.frequency;
+        throw new Error(`Unsupported frequency: ${_exhaustive}`);
+      }
     }
 
     // If period is entirely before window, advance
@@ -218,4 +222,6 @@ export function computeProration(
       return Math.round((fullAmount * effectiveHours / totalHours) * 100) / 100;
     }
   }
+  // All non-NONE policies are handled above; NONE returns early at top
+  return fullAmount;
 }
