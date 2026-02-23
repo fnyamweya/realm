@@ -4,6 +4,8 @@ export {
   type ClientConfig,
   AuthSecurityProfileSchema,
   type AuthSecurityProfile,
+  FinanceConfigSchema,
+  type FinanceConfig,
   EnvironmentConfigSchema,
   type EnvironmentConfig,
   validateEnvironmentConfig,

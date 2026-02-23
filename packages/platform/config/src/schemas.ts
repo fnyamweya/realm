@@ -8,6 +8,7 @@ export enum ConfigKind {
   MAKER_CHECKER_POLICY = "MAKER_CHECKER_POLICY",
   PRICING_RULES = "PRICING_RULES",
   INTEGRATION_CONFIG = "INTEGRATION_CONFIG",
+  FINANCE_CONFIG = "FINANCE_CONFIG",
 }
 
 export const ClientConfigSchema = z.object({
@@ -43,6 +44,26 @@ export const AuthSecurityProfileSchema = z.object({
 });
 
 export type AuthSecurityProfile = z.infer<typeof AuthSecurityProfileSchema>;
+
+export const FinanceConfigSchema = z.object({
+  clientId: z.string(),
+  defaultCurrency: z.string().length(3).regex(/^[A-Z]{3}$/),
+  defaultTimezone: z.string(),
+  chargeGenerationLeadDays: z.number().int().min(0).max(90).default(1),
+  lateFeeEnabled: z.boolean().default(false),
+  lateFeeGraceDays: z.number().int().min(0).max(90).default(5),
+  lateFeeType: z.enum(['fixed', 'percentage']).default('fixed'),
+  lateFeeAmount: z.number().min(0).default(0),
+  lateFeePercentage: z.number().min(0).max(100).default(0),
+  lateFeeCapAmount: z.number().min(0).optional(),
+  waiverApprovalThreshold: z.number().min(0).default(500),
+  adjustmentApprovalThreshold: z.number().min(0).default(1000),
+  prorationPolicy: z.enum(['NONE', 'DAILY_ACTUAL', 'DAILY_30', 'HOURLY']).default('DAILY_ACTUAL'),
+  allowedChargeCategories: z.array(z.string()).default([]),
+  schemaVersion: z.number(),
+});
+
+export type FinanceConfig = z.infer<typeof FinanceConfigSchema>;
 
 export const EnvironmentConfigSchema = z.object({
   environment: z.enum(["uat", "production"]),

@@ -3,6 +3,7 @@ import {
   ConfigKind,
   ClientConfigSchema,
   AuthSecurityProfileSchema,
+  FinanceConfigSchema,
 } from "@realtyos/config";
 
 interface SchemaEntry {
@@ -18,6 +19,10 @@ export const ConfigSchemaRegistry = new Map<ConfigKind, SchemaEntry>([
   [
     ConfigKind.AUTH_SECURITY_PROFILE,
     { schema: AuthSecurityProfileSchema, version: 1 },
+  ],
+  [
+    ConfigKind.FINANCE_CONFIG,
+    { schema: FinanceConfigSchema, version: 1 },
   ],
 ]);
 
