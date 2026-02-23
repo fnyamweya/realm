@@ -6,7 +6,7 @@ function makeChargeProps(overrides: Partial<Parameters<typeof LedgerEntry.create
   return {
     id: 'le-1',
     clientId: 'client-1',
-    entryType: LedgerEntryType.CHARGE as const,
+    entryType: 'CHARGE' as const,
     propertyId: 'prop-1',
     unitId: 'unit-1',
     leaseId: 'lease-1',

@@ -6,7 +6,7 @@ function makeProps(overrides: Partial<Parameters<typeof ChargeDefinition.create>
     id: 'cd-1',
     clientId: 'client-1',
     name: 'Monthly Rent',
-    category: ChargeCategory.RENT as const,
+    category: 'RENT' as const,
     description: 'Standard rent charge',
     glCode: '4000',
     taxable: false,

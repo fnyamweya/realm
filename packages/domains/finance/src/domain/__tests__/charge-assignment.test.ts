@@ -7,7 +7,7 @@ function makeProps(overrides: Partial<Parameters<typeof ChargeAssignment.create>
     id: 'ca-1',
     clientId: 'client-1',
     chargePlanId: 'cp-1',
-    scopeType: AssignmentScope.LEASE as const,
+    scopeType: 'LEASE' as const,
     scopeId: 'lease-1',
     leaseId: 'lease-1',
     overrideAmount: undefined as Money | undefined,
