@@ -1,0 +1,8 @@
+{
+  "name": "@realtyos/prettier-config",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  }
+}

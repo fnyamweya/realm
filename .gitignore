@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+
+# Turbo
+.turbo/
+
+# Cloudflare
+.wrangler/
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Environment variables
+.env*
+
+# Temporary files
+tmp/

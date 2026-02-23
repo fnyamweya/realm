@@ -1,0 +1,10 @@
+packages:
+  - "apps/*"
+  - "packages/platform/*"
+  - "packages/domains/*"
+  - "packages/adapters/*"
+  - "packages/providers/*"
+  - "packages/contracts/*"
+  - "packages/integrations"
+  - "tooling/*"
+  - "testkit/*"
