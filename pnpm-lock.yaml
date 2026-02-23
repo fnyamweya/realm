@@ -21,11 +21,49 @@ importers:
         specifier: ^3.0.0
         version: 3.2.4(@types/node@22.19.11)
 
+  packages/platform/events:
+    dependencies:
+      '@realtyos/validation':
+        specifier: workspace:*
+        version: link:../validation
+      zod:
+        specifier: ^3.24.0
+        version: 3.25.76
+    devDependencies:
+      '@realtyos/tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/tsconfig
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.4(@types/node@22.19.11)
+
   packages/platform/observability:
     dependencies:
       '@realtyos/validation':
         specifier: workspace:*
         version: link:../validation
+    devDependencies:
+      '@realtyos/tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/tsconfig
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.4(@types/node@22.19.11)
+
+  packages/platform/security:
+    dependencies:
+      '@realtyos/validation':
+        specifier: workspace:*
+        version: link:../validation
+      zod:
+        specifier: ^3.24.0
+        version: 3.25.76
     devDependencies:
       '@realtyos/tsconfig':
         specifier: workspace:*
