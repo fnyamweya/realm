@@ -210,6 +210,31 @@ importers:
         specifier: ^3.0.0
         version: 3.2.4(@types/node@22.19.11)
 
+  packages/domains/identity-access:
+    dependencies:
+      '@realtyos/auth':
+        specifier: workspace:*
+        version: link:../../platform/auth
+      '@realtyos/policy':
+        specifier: workspace:*
+        version: link:../../platform/policy
+      '@realtyos/validation':
+        specifier: workspace:*
+        version: link:../../platform/validation
+      zod:
+        specifier: ^3.24.0
+        version: 3.25.76
+    devDependencies:
+      '@realtyos/tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/tsconfig
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.4(@types/node@22.19.11)
+
   packages/platform/auth:
     dependencies:
       '@realtyos/validation':
