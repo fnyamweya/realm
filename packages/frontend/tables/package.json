@@ -1,0 +1,29 @@
+{
+  "name": "@realtyos/tables",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-table": "^8.20.0",
+    "@realtyos/ui": "workspace:*",
+    "@realtyos/frontend-utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@realtyos/tsconfig": "workspace:*",
+    "typescript": "^5.7.0",
+    "@types/react": "^19.0.0"
+  }
+}
