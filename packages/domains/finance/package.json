@@ -1,0 +1,28 @@
+{
+  "name": "@realtyos/finance",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.24.0",
+    "@realtyos/validation": "workspace:*",
+    "@realtyos/events": "workspace:*",
+    "@realtyos/policy": "workspace:*",
+    "@realtyos/contracts-api": "workspace:*",
+    "@realtyos/contracts-events": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "@realtyos/tsconfig": "workspace:*"
+  }
+}
