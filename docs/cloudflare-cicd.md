@@ -31,8 +31,16 @@ This repository ships a fully programmatic Cloudflare delivery pipeline using Gi
 ## Required GitHub secrets
 
 - `CLOUDFLARE_API_TOKEN` (least-privilege token for Pages, DNS, D1, Queues, R2, KV)
+- `CLOUDFLARE_API_TOKEN_WORKERS` (recommended dedicated token for API Worker deploys)
 - `CLOUDFLARE_ACCOUNT_ID`
 - `CLOUDFLARE_ZONE_ID`
+
+If `CLOUDFLARE_API_TOKEN_WORKERS` is not set, workflow falls back to `CLOUDFLARE_API_TOKEN`.
+
+### Minimum Workers token permissions
+
+- Account > Workers Scripts: `Edit`
+- Account > Workers Scripts: `Read` (implicitly included in many token templates)
 
 ## Optional GitHub repository variables
 

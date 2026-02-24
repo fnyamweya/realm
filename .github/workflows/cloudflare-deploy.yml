@@ -111,7 +111,7 @@ jobs:
       - name: Deploy API worker to Cloudflare Workers
         run: node tooling/cloudflare/deploy-api-worker.mjs --environment "$DEPLOY_ENV" --branch "${{ github.ref_name }}"
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKERS != '' && secrets.CLOUDFLARE_API_TOKEN_WORKERS || secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_ROOT_DOMAIN: ${{ vars.CLOUDFLARE_ROOT_DOMAIN }}
           CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}
