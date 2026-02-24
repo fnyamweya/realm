@@ -21,6 +21,82 @@ importers:
         specifier: ^3.0.0
         version: 3.2.4(@types/node@22.19.11)(jiti@1.21.7)
 
+  apps/web-console:
+    dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.9.0
+        version: 3.10.0(react-hook-form@7.71.2(react@19.2.4))
+      '@realtyos/auth-web':
+        specifier: workspace:*
+        version: link:../../packages/frontend/auth-web
+      '@realtyos/config-web':
+        specifier: workspace:*
+        version: link:../../packages/frontend/config-web
+      '@realtyos/forms':
+        specifier: workspace:*
+        version: link:../../packages/frontend/forms
+      '@realtyos/frontend-utils':
+        specifier: workspace:*
+        version: link:../../packages/frontend/utils
+      '@realtyos/policy-ui':
+        specifier: workspace:*
+        version: link:../../packages/frontend/policy-ui
+      '@realtyos/sdk':
+        specifier: workspace:*
+        version: link:../../packages/frontend/sdk
+      '@realtyos/tables':
+        specifier: workspace:*
+        version: link:../../packages/frontend/tables
+      '@realtyos/telemetry-web':
+        specifier: workspace:*
+        version: link:../../packages/frontend/telemetry-web
+      '@realtyos/ui':
+        specifier: workspace:*
+        version: link:../../packages/frontend/ui
+      '@realtyos/ui-shells':
+        specifier: workspace:*
+        version: link:../../packages/frontend/ui-shells
+      lucide-react:
+        specifier: ^0.400.0
+        version: 0.400.0(react@19.2.4)
+      next:
+        specifier: ^15.1.0
+        version: 15.5.12(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+      react-hook-form:
+        specifier: ^7.54.0
+        version: 7.71.2(react@19.2.4)
+      zod:
+        specifier: ^3.24.0
+        version: 3.25.76
+    devDependencies:
+      '@realtyos/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/tsconfig
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      autoprefixer:
+        specifier: ^10.4.0
+        version: 10.4.24(postcss@8.5.6)
+      postcss:
+        specifier: ^8.4.0
+        version: 8.5.6
+      tailwindcss:
+        specifier: ^3.4.0
+        version: 3.4.19
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
   apps/web-landing:
     dependencies:
       '@realtyos/frontend-utils':
