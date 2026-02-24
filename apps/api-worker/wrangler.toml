@@ -3,3 +3,58 @@ main = "src/index.ts"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = true
+
+# ─── Environment Variables ────────────────────────────────────────────────────
+
+[vars]
+ENVIRONMENT = "production"
+AUTH_ISSUER = "https://auth.realtyos.com/"
+AUTH_AUDIENCE = "realtyos-api"
+ALLOWED_ORIGINS = "*"
+API_KEY_PREFIX = "rto"
+RATE_LIMIT_PER_MINUTE = "60"
+RATE_LIMIT_API_KEY_PER_MINUTE = "120"
+# AUTH_DEBUG = "false"
+# AUTH_BYPASS = "false"
+
+# ─── D1 Database Bindings ─────────────────────────────────────────────────────
+
+[[d1_databases]]
+binding = "AUTH_DB"
+database_name = "realm-auth"
+database_id = "placeholder-set-via-provisioning"
+
+# ─── KV Namespace Bindings ────────────────────────────────────────────────────
+
+[[kv_namespaces]]
+binding = "AUTH_CACHE"
+id = "placeholder-set-via-provisioning"
+
+# ─── Secrets (set via `wrangler secret put`) ──────────────────────────────────
+# JWKS_URL — OIDC provider's JWKS endpoint
+# These are configured as secrets, not vars, to avoid leaking in logs:
+#   wrangler secret put JWKS_URL
+
+# ─── Development Overrides ────────────────────────────────────────────────────
+
+[env.dev]
+workers_dev = true
+
+[env.dev.vars]
+ENVIRONMENT = "development"
+AUTH_DEBUG = "true"
+AUTH_BYPASS = "true"
+ALLOWED_ORIGINS = "*"
+JWKS_URL = "http://localhost:8788/.well-known/jwks.json"
+AUTH_ISSUER = "http://localhost:8788/"
+AUTH_AUDIENCE = "realtyos-api-dev"
+
+# ─── Staging Overrides ────────────────────────────────────────────────────────
+
+[env.staging]
+workers_dev = true
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+AUTH_DEBUG = "true"
+ALLOWED_ORIGINS = "https://*.staging.realtyos.com,https://staging.realtyos.com"

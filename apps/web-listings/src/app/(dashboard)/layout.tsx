@@ -1,9 +1,9 @@
 import { PortalShell } from '@/components/portal/chrome';
 
 export default function PortalRoutesLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return <PortalShell>{children}</PortalShell>;
+    return <PortalShell>{children}</PortalShell>;
 }
