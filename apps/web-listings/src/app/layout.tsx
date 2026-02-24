@@ -5,6 +5,8 @@ import { Outfit } from 'next/font/google';
 import { ThemeProvider, ActiveThemeProvider, DEFAULT_THEME } from '@realtyos/ui-shells';
 import './globals.css';
 
+export const runtime = 'edge';
+
 const fontSans = Geist({
   subsets: ['latin'],
   variable: '--font-geist',
