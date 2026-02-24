@@ -115,6 +115,8 @@ async function main() {
         "apps/api-worker/wrangler.toml",
         "--name",
         workerName,
+        "--compatibility-flags",
+        "nodejs_compat",
         "--var",
         `DEPLOY_ENV:${environment}`,
         "--var",
