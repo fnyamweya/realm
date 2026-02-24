@@ -100,6 +100,49 @@ importers:
         specifier: ^4.0.0
         version: 4.68.0(@cloudflare/workers-types@4.20260303.0)
 
+  apps/jobs-worker:
+    dependencies:
+      '@realtyos/adapter-d1':
+        specifier: workspace:*
+        version: link:../../packages/adapters/d1
+      '@realtyos/adapter-queues':
+        specifier: workspace:*
+        version: link:../../packages/adapters/queues
+      '@realtyos/contracts-events':
+        specifier: workspace:*
+        version: link:../../packages/contracts/events
+      '@realtyos/events':
+        specifier: workspace:*
+        version: link:../../packages/platform/events
+      '@realtyos/finance':
+        specifier: workspace:*
+        version: link:../../packages/domains/finance
+      '@realtyos/observability':
+        specifier: workspace:*
+        version: link:../../packages/platform/observability
+      '@realtyos/validation':
+        specifier: workspace:*
+        version: link:../../packages/platform/validation
+      zod:
+        specifier: ^3.24.0
+        version: 3.25.76
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20250214.0
+        version: 4.20260303.0
+      '@realtyos/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/tsconfig
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.0
+        version: 3.2.4(@types/node@22.19.11)(jiti@1.21.7)
+      wrangler:
+        specifier: ^4.0.0
+        version: 4.68.0(@cloudflare/workers-types@4.20260303.0)
+
   apps/web-command:
     dependencies:
       '@hookform/resolvers':

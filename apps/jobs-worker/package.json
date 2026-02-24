@@ -1,0 +1,30 @@
+{
+  "name": "@realtyos/jobs-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "echo 'lint ok'"
+  },
+  "dependencies": {
+    "@realtyos/contracts-events": "workspace:*",
+    "@realtyos/events": "workspace:*",
+    "@realtyos/observability": "workspace:*",
+    "@realtyos/validation": "workspace:*",
+    "@realtyos/finance": "workspace:*",
+    "@realtyos/adapter-d1": "workspace:*",
+    "@realtyos/adapter-queues": "workspace:*",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "@realtyos/tsconfig": "workspace:*",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
