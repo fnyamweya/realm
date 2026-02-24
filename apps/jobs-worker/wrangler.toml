@@ -1,0 +1,23 @@
+name = "realtyos-jobs"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "uat"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "realtyos-db"
+database_id = ""
+
+[[queues.consumers]]
+queue = "realtyos-events"
+max_batch_size = 10
+max_batch_timeout = 30
+max_retries = 3
+dead_letter_queue = "realtyos-events-dlq"
+
+[[queues.producers]]
+binding = "EVENTS_QUEUE"
+queue = "realtyos-events"

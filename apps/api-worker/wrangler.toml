@@ -1,0 +1,24 @@
+name = "realtyos-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "uat"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "realtyos-db"
+database_id = ""
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "realtyos-files"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = ""
+
+[[queues.producers]]
+binding = "EVENTS_QUEUE"
+queue = "realtyos-events"

@@ -1,0 +1,16 @@
+{
+  "name": "@realtyos/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@realtyos/contracts-api": "workspace:*",
+    "@realtyos/contracts-events": "workspace:*",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "@realtyos/tsconfig": "workspace:*"
+  }
+}
