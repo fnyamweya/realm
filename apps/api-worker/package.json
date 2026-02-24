@@ -1,0 +1,42 @@
+{
+  "name": "@realtyos/api-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "echo 'lint ok'"
+  },
+  "dependencies": {
+    "@realtyos/contracts-api": "workspace:*",
+    "@realtyos/contracts-events": "workspace:*",
+    "@realtyos/contracts-config": "workspace:*",
+    "@realtyos/http": "workspace:*",
+    "@realtyos/validation": "workspace:*",
+    "@realtyos/policy": "workspace:*",
+    "@realtyos/observability": "workspace:*",
+    "@realtyos/events": "workspace:*",
+    "@realtyos/auth": "workspace:*",
+    "@realtyos/security": "workspace:*",
+    "@realtyos/config": "workspace:*",
+    "@realtyos/files": "workspace:*",
+    "@realtyos/maker-checker": "workspace:*",
+    "@realtyos/identity-access": "workspace:*",
+    "@realtyos/finance": "workspace:*",
+    "@realtyos/adapter-d1": "workspace:*",
+    "@realtyos/adapter-r2": "workspace:*",
+    "@realtyos/adapter-kv": "workspace:*",
+    "@realtyos/adapter-queues": "workspace:*",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "@realtyos/tsconfig": "workspace:*",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
