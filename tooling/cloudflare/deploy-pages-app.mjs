@@ -89,8 +89,6 @@ async function main() {
         projectName,
         "--branch",
         branch,
-        "--compatibility-flags",
-        "nodejs_compat",
         "--commit-dirty=true",
     ], {
         cwd: appDir,

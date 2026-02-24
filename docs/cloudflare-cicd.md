@@ -76,6 +76,7 @@ This enables horizontal scaling across environments and app boundaries with cons
 
 - `tooling/cloudflare/provision-infra.mjs`
   - Provisions all required Cloudflare dependencies idempotently
+  - Enforces `nodejs_compat` for Pages preview/production deployments
 
 - `tooling/cloudflare/deploy-pages-app.mjs`
   - Builds one Next.js app

@@ -75,6 +75,32 @@ function buildPagesProjectName(appName, environment) {
     return `realm-${appName}-${environment}`;
 }
 
+async function ensurePagesCompatibility(cf, projectName) {
+    const compatibilityDate = "2025-01-01";
+    const compatibilityFlags = ["nodejs_compat"];
+
+    await cf.request(`/accounts/${cf.accountId}/pages/projects/${projectName}`, {
+        method: "PATCH",
+        body: {
+            deployment_configs: {
+                preview: {
+                    compatibility_date: compatibilityDate,
+                    compatibility_flags: compatibilityFlags,
+                },
+                production: {
+                    compatibility_date: compatibilityDate,
+                    compatibility_flags: compatibilityFlags,
+                },
+            },
+        },
+    });
+
+    return {
+        compatibilityDate,
+        compatibilityFlags,
+    };
+}
+
 function buildApiWorkerName(environment) {
     return `realm-api-${environment}`;
 }
@@ -87,7 +113,8 @@ async function ensurePagesProject(cf, projectName) {
 
     const existing = projects.find((project) => project.name === projectName);
     if (existing) {
-        return { name: projectName, created: false };
+        const compatibility = await ensurePagesCompatibility(cf, projectName);
+        return { name: projectName, created: false, compatibilityUpdated: true, ...compatibility };
     }
 
     await cf.request(`/accounts/${cf.accountId}/pages/projects`, {
@@ -95,10 +122,14 @@ async function ensurePagesProject(cf, projectName) {
         body: {
             name: projectName,
             production_branch: "main",
+            compatibility_date: "2025-01-01",
+            compatibility_flags: ["nodejs_compat"],
         },
     });
 
-    return { name: projectName, created: true };
+    const compatibility = await ensurePagesCompatibility(cf, projectName);
+
+    return { name: projectName, created: true, compatibilityUpdated: true, ...compatibility };
 }
 
 async function ensureCustomDomain(cf, projectName, domainName) {
