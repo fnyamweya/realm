@@ -75,6 +75,10 @@ function buildPagesProjectName(appName, environment) {
     return `realm-${appName}-${environment}`;
 }
 
+function buildApiWorkerName(environment) {
+    return `realm-api-${environment}`;
+}
+
 async function ensurePagesProject(cf, projectName) {
     const projects = await cf.paginate(
         `/accounts/${cf.accountId}/pages/projects`,
@@ -116,6 +120,21 @@ async function ensureCustomDomain(cf, projectName, domainName) {
     );
 
     return { name: domainName, created: true };
+}
+
+async function getWorkersSubdomain(cf) {
+    const response = await cf.request(
+        `/accounts/${cf.accountId}/workers/subdomain`,
+    );
+
+    const subdomain = response?.result?.subdomain;
+    if (!subdomain) {
+        throw new Error(
+            "Unable to resolve workers.dev subdomain for account. Set CLOUDFLARE_WORKERS_SUBDOMAIN explicitly.",
+        );
+    }
+
+    return `${subdomain}`;
 }
 
 async function ensureDnsCname(cf, zoneId, name, content) {
@@ -256,6 +275,12 @@ async function main() {
     const kvTargets = kvNamespaces.length > 0 ? kvNamespaces : [`realm-cache-${environment}`];
 
     const r2Location = resolveR2Location(process.env.CLOUDFLARE_R2_LOCATION);
+    const apiSubdomain = `${process.env.CLOUDFLARE_API_SUBDOMAIN ?? "api"}`
+        .trim()
+        .toLowerCase();
+    const workerSubdomainFromEnv = `${process.env.CLOUDFLARE_WORKERS_SUBDOMAIN ?? ""}`
+        .trim()
+        .toLowerCase();
 
     const cf = createCloudflareClient();
 
@@ -268,6 +293,7 @@ async function main() {
         queues: [],
         r2Buckets: [],
         kvNamespaces: [],
+        apiDnsRecords: [],
     };
 
     for (const app of apps) {
@@ -290,6 +316,26 @@ async function main() {
                 summary.dnsRecords.push({ name: domainName, ...dnsResult });
             }
         }
+    }
+
+    if (rootDomain && zoneId) {
+        const apiDomainName = `${apiSubdomain}.${rootDomain}`;
+        const apiWorkerName = buildApiWorkerName(environment);
+        const workersSubdomain = workerSubdomainFromEnv || await getWorkersSubdomain(cf);
+        const workersHostname = `${apiWorkerName}.${workersSubdomain}.workers.dev`;
+
+        const apiDnsResult = await ensureDnsCname(
+            cf,
+            zoneId,
+            apiDomainName,
+            workersHostname,
+        );
+
+        summary.apiDnsRecords.push({
+            name: apiDomainName,
+            target: workersHostname,
+            ...apiDnsResult,
+        });
     }
 
     for (const dbName of d1Targets) {

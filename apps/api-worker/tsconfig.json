@@ -1,0 +1,17 @@
+{
+  "extends": "../../tooling/tsconfig/tsconfig.worker.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@realtyos/contracts-api": ["../../packages/contracts/api/src/index.ts"],
+      "@realtyos/validation": ["../../packages/platform/validation/src/index.ts"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "../../packages/contracts/api/src/**/*.ts",
+    "../../packages/platform/validation/src/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

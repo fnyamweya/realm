@@ -11,7 +11,9 @@
     "typecheck": "turbo run typecheck",
     "cf:provision": "node tooling/cloudflare/provision-infra.mjs --environment production",
     "cf:deploy:web-listings": "node tooling/cloudflare/deploy-pages-app.mjs --app web-listings --environment production --branch main",
-    "cf:verify:web-listings": "node tooling/cloudflare/verify-pages-deployment.mjs --project realm-web-listings-production --environment production"
+    "cf:verify:web-listings": "node tooling/cloudflare/verify-pages-deployment.mjs --project realm-web-listings-production --environment production",
+    "cf:deploy:api": "node tooling/cloudflare/deploy-api-worker.mjs --environment production --branch main",
+    "cf:verify:api": "node tooling/cloudflare/verify-http-endpoint.mjs --url http://localhost:8787/health"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
