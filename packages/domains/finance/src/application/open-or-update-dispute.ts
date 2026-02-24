@@ -1,5 +1,5 @@
 import type { DisputeRepository } from '../ports/dispute-repository.js';
-import { Dispute, DisputeStatus, type DisputeData } from '../domain/dispute.js';
+import { Dispute, DisputeStatus, type DisputeData, type DisputeReason } from '../domain/dispute.js';
 import type { DomainEvent } from '../domain/ledger-entry.js';
 
 export interface OpenOrUpdateDisputeInput {
@@ -8,7 +8,7 @@ export interface OpenOrUpdateDisputeInput {
   readonly paymentId: string;
   readonly provider: string;
   readonly providerDisputeId: string;
-  readonly reason: string;
+  readonly reason: DisputeReason;
   readonly amount: number;
   readonly currency: string;
   readonly feeAmount: number | undefined;
@@ -64,7 +64,7 @@ export async function openOrUpdateDispute(
     paymentId: input.paymentId,
     provider: input.provider,
     providerDisputeId: input.providerDisputeId,
-    reason: input.reason as 'GENERAL',
+    reason: input.reason,
     amount: input.amount,
     currency: input.currency,
     feeAmount: input.feeAmount,

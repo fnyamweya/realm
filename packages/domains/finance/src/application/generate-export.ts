@@ -1,11 +1,11 @@
 import type { ExportJobRepository } from '../ports/export-job-repository.js';
-import { ExportJob, type ExportJobData } from '../domain/export-job.js';
+import { ExportJob, type ExportJobData, type ExportJobKind } from '../domain/export-job.js';
 import type { DomainEvent } from '../domain/ledger-entry.js';
 
 export interface GenerateExportInput {
   readonly id: string;
   readonly clientId: string;
-  readonly kind: string;
+  readonly kind: ExportJobKind;
   readonly parametersJson: string;
   readonly isSandboxWatermarked: boolean;
   readonly actorId: string;
@@ -31,7 +31,7 @@ export async function generateExport(
   const job = ExportJob.create({
     id: input.id,
     clientId: input.clientId,
-    kind: input.kind as 'LEDGER_EXPORT',
+    kind: input.kind,
     parametersJson: input.parametersJson,
     isSandboxWatermarked: input.isSandboxWatermarked,
     createdByActorId: input.actorId,
