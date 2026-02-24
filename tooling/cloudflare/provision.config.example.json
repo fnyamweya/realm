@@ -1,0 +1,20 @@
+{
+  "environment": "production",
+  "apps": [
+    "web-landing",
+    "web-console",
+    "web-resident",
+    "web-command",
+    "web-listings"
+  ],
+  "resources": {
+    "d1Databases": ["realm-core-production"],
+    "queues": ["realm-jobs-production", "realm-events-production"],
+    "r2Buckets": ["realm-assets-production"],
+    "kvNamespaces": ["realm-cache-production"]
+  },
+  "dns": {
+    "rootDomain": "example.com",
+    "zoneId": "<cloudflare-zone-id>"
+  }
+}
