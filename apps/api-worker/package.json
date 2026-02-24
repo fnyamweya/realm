@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "wrangler dev --port 8787",
+        "dev": "wrangler dev --port 8787 --env dev",
         "deploy": "wrangler deploy",
         "typecheck": "tsc --noEmit",
         "test": "vitest run --passWithNoTests"

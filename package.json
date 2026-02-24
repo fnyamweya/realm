@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "turbo run dev --parallel",
     "dev:apps": "turbo run dev --parallel --filter=./apps/*",
+    "dev:api": "turbo run dev --filter=@realtyos/api-worker",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
