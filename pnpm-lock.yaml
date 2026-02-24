@@ -458,6 +458,40 @@ importers:
         specifier: ^5.7.0
         version: 5.9.3
 
+  packages/frontend/ui-shells:
+    dependencies:
+      '@realtyos/frontend-utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@realtyos/ui':
+        specifier: workspace:*
+        version: link:../ui
+      lucide-react:
+        specifier: ^0.400.0
+        version: 0.400.0(react@19.2.4)
+      next:
+        specifier: ^15.0.0
+        version: 15.5.12(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@realtyos/tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/tsconfig
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
+
   packages/frontend/utils:
     dependencies:
       clsx:
