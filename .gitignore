@@ -21,3 +21,10 @@ coverage/
 
 # Temporary files
 tmp/
+
+# Next.js
+.next/
+out/
+
+# Vercel
+.vercel/

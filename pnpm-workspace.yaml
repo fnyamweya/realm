@@ -5,6 +5,7 @@ packages:
   - "packages/adapters/*"
   - "packages/providers/*"
   - "packages/contracts/*"
+  - "packages/frontend/*"
   - "packages/integrations"
   - "tooling/*"
   - "testkit/*"
