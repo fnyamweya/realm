@@ -17,18 +17,18 @@ function createD1IdempotencyStore(db: D1Database): IdempotencyStore {
     async isProcessed(clientId: string, eventId: string, handlerName: string): Promise<boolean> {
       const result = await db
         .prepare(
-          "SELECT 1 FROM processed_markers WHERE client_id = ? AND event_id = ? AND handler_name = ? LIMIT 1",
+          "SELECT 1 FROM processed_markers WHERE clientId = ? AND handlerName = ? AND idempotencyKey = ? LIMIT 1",
         )
-        .bind(clientId, eventId, handlerName)
+        .bind(clientId, handlerName, eventId)
         .first();
       return result !== null;
     },
     async markProcessed(marker): Promise<void> {
       await db
         .prepare(
-          "INSERT INTO processed_markers (client_id, event_id, handler_name, processed_at) VALUES (?, ?, ?, ?)",
+          "INSERT INTO processed_markers (id, clientId, handlerName, idempotencyKey, processedAt) VALUES (?, ?, ?, ?, ?)",
         )
-        .bind(marker.clientId, marker.eventId, marker.handlerName, marker.processedAt)
+        .bind(generateId("pm"), marker.clientId, marker.handlerName, marker.eventId, marker.processedAt)
         .run();
     },
   };
@@ -40,59 +40,59 @@ function createD1OutboxRepository(db: D1Database): OutboxRepository {
     async insert(entry): Promise<void> {
       await db
         .prepare(
-          "INSERT INTO outbox_events (id, client_id, event_type, payload, status, retry_count, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO outbox_events (id, clientId, eventType, payloadJson, status, retryCount, occurredAt, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         )
-        .bind(entry.id, entry.clientId, entry.eventType, entry.payload, entry.status, entry.retryCount, entry.createdAt)
+        .bind(entry.id, entry.clientId, entry.eventType, entry.payload, entry.status, entry.retryCount, entry.createdAt, entry.createdAt)
         .run();
     },
     async markPublished(id: string): Promise<void> {
       await db
-        .prepare("UPDATE outbox_events SET status = 'published', published_at = ? WHERE id = ?")
+        .prepare("UPDATE outbox_events SET status = 'DISPATCHED', publishedAt = ? WHERE id = ?")
         .bind(new Date().toISOString(), id)
         .run();
     },
     async markFailed(id: string, error: string): Promise<void> {
       await db
         .prepare(
-          "UPDATE outbox_events SET status = 'failed', failed_at = ?, error_message = ?, retry_count = retry_count + 1 WHERE id = ?",
+          "UPDATE outbox_events SET status = 'FAILED', lastError = ?, retryCount = retryCount + 1 WHERE id = ?",
         )
-        .bind(new Date().toISOString(), error, id)
+        .bind(error, id)
         .run();
     },
     async getPending(clientId: string, limit: number) {
       const result = await db
-        .prepare("SELECT * FROM outbox_events WHERE client_id = ? AND status = 'pending' ORDER BY created_at ASC LIMIT ?")
+        .prepare("SELECT * FROM outbox_events WHERE clientId = ? AND status = 'PENDING' ORDER BY occurredAt ASC LIMIT ?")
         .bind(clientId, limit)
         .all();
       return (result.results ?? []).map((row) => ({
         id: String(row["id"]),
-        clientId: String(row["client_id"]),
-        eventType: String(row["event_type"]),
-        payload: String(row["payload"]),
+        clientId: String(row["clientId"]),
+        eventType: String(row["eventType"]),
+        payload: String(row["payloadJson"]),
         status: String(row["status"]) as "pending" | "published" | "failed",
-        retryCount: Number(row["retry_count"]),
-        createdAt: String(row["created_at"]),
-        publishedAt: row["published_at"] != null ? String(row["published_at"]) : undefined,
-        failedAt: row["failed_at"] != null ? String(row["failed_at"]) : undefined,
-        errorMessage: row["error_message"] != null ? String(row["error_message"]) : undefined,
+        retryCount: Number(row["retryCount"]),
+        createdAt: String(row["createdAt"]),
+        publishedAt: row["publishedAt"] != null ? String(row["publishedAt"]) : undefined,
+        failedAt: undefined,
+        errorMessage: row["lastError"] != null ? String(row["lastError"]) : undefined,
       }));
     },
     async getDeadLetters(clientId: string, limit: number) {
       const result = await db
-        .prepare("SELECT * FROM outbox_events WHERE client_id = ? AND status = 'failed' ORDER BY failed_at DESC LIMIT ?")
+        .prepare("SELECT * FROM outbox_events WHERE clientId = ? AND status = 'FAILED' ORDER BY createdAt DESC LIMIT ?")
         .bind(clientId, limit)
         .all();
       return (result.results ?? []).map((row) => ({
         id: String(row["id"]),
-        clientId: String(row["client_id"]),
-        eventType: String(row["event_type"]),
-        payload: String(row["payload"]),
+        clientId: String(row["clientId"]),
+        eventType: String(row["eventType"]),
+        payload: String(row["payloadJson"]),
         status: String(row["status"]) as "pending" | "published" | "failed",
-        retryCount: Number(row["retry_count"]),
-        createdAt: String(row["created_at"]),
-        publishedAt: row["published_at"] != null ? String(row["published_at"]) : undefined,
-        failedAt: row["failed_at"] != null ? String(row["failed_at"]) : undefined,
-        errorMessage: row["error_message"] != null ? String(row["error_message"]) : undefined,
+        retryCount: Number(row["retryCount"]),
+        createdAt: String(row["createdAt"]),
+        publishedAt: row["publishedAt"] != null ? String(row["publishedAt"]) : undefined,
+        failedAt: undefined,
+        errorMessage: row["lastError"] != null ? String(row["lastError"]) : undefined,
       }));
     },
   };
@@ -160,10 +160,10 @@ export default {
 
     // Query distinct client IDs with pending events
     const clientRows = await env.DB
-      .prepare("SELECT DISTINCT client_id FROM outbox_events WHERE status = 'pending' LIMIT 100")
+      .prepare("SELECT DISTINCT clientId FROM outbox_events WHERE status = 'PENDING' LIMIT 100")
       .all();
 
-    const clientIds = (clientRows.results ?? []).map((row) => String(row["client_id"]));
+    const clientIds = (clientRows.results ?? []).map((row) => String(row["clientId"]));
 
     let totalDispatched = 0;
     let totalFailed = 0;
