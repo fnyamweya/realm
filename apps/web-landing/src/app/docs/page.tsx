@@ -93,6 +93,7 @@ const sections = [
 export default function DocsPage() {
   return (
     <LandingShell
+      className="landing-glass-shell"
       siteName="RealtyOS"
       navLinks={navLinks}
       ctaButton={{ label: 'Get Started', href: '/login' }}

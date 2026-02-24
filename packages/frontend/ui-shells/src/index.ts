@@ -1,8 +1,19 @@
 // Types
 export type { NavItem, NavSection, ShellConfig } from './types';
 
+// Theme infrastructure
+export { ActiveThemeProvider, useThemeConfig } from './active-theme';
+export { ThemeProvider } from './theme-provider';
+export { ThemeModeToggle } from './theme-mode-toggle';
+export { ThemeSelector } from './theme-selector';
+export { DEFAULT_THEME, THEMES, type ThemeValue } from './theme-config';
+
+// Sidebar components
+export { OrgSwitcher, type OrgSwitcherProps, type OrgData } from './org-switcher';
+export { NavUser, type NavUserProps, type NavUserData } from './nav-user';
+
 // Primitives
-export { Sidebar, type SidebarProps } from './sidebar';
+export { AppSidebar, type AppSidebarProps } from './app-sidebar';
 export { Header, type HeaderProps, type BreadcrumbEntry } from './header';
 export { PageHeader, type PageHeaderProps } from './page-header';
 export { PageContainer, type PageContainerProps } from './page-container';

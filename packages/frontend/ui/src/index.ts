@@ -4,6 +4,7 @@ export {
   CardHeader,
   CardFooter,
   CardTitle,
+  CardAction,
   CardDescription,
   CardContent,
 } from "./components/card";
@@ -12,6 +13,11 @@ export { Label } from "./components/label";
 export { Badge, badgeVariants, type BadgeProps } from "./components/badge";
 export { Separator } from "./components/separator";
 export { Avatar, AvatarImage, AvatarFallback } from "./components/avatar";
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "./components/collapsible";
 export {
   Dialog,
   DialogPortal,
@@ -53,6 +59,42 @@ export {
   SelectScrollUpButton,
   SelectScrollDownButton,
 } from "./components/select";
+export {
+  Sheet,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+} from "./components/sheet";
+export {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar,
+} from "./components/sidebar";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/tabs";
 export {
   Table,

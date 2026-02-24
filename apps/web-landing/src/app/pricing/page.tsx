@@ -107,6 +107,7 @@ const tiers: PricingTier[] = [
 export default function PricingPage() {
   return (
     <LandingShell
+      className="landing-glass-shell"
       siteName="RealtyOS"
       navLinks={navLinks}
       ctaButton={{ label: 'Get Started', href: '/login' }}

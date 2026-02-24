@@ -85,6 +85,7 @@ const securityFeatures = [
 export default function SecurityPage() {
   return (
     <LandingShell
+      className="landing-glass-shell"
       siteName="RealtyOS"
       navLinks={navLinks}
       ctaButton={{ label: 'Get Started', href: '/login' }}

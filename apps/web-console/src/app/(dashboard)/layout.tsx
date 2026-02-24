@@ -6,12 +6,16 @@ import {
 } from '@realtyos/ui-shells';
 import {
   LayoutDashboard,
-  Building2,
-  FileText,
-  Wrench,
-  DollarSign,
-  Settings,
+  Folder,
+  Boxes,
+  KanbanSquare,
+  Sparkles,
+  CircleUser,
+  User,
+  LogIn,
+  Plus,
 } from 'lucide-react';
+import { HeaderActions } from './_components/header-actions';
 
 const navSections: NavSection[] = [
   {
@@ -22,49 +26,84 @@ const navSections: NavSection[] = [
         href: '/dashboard',
         icon: <LayoutDashboard className="h-4 w-4" />,
       },
-    ],
-  },
-  {
-    label: 'Management',
-    items: [
       {
-        title: 'Properties',
-        href: '/properties',
-        icon: <Building2 className="h-4 w-4" />,
+        title: 'Workspaces',
+        href: '/workspaces',
+        icon: <Folder className="h-4 w-4" />,
       },
       {
-        title: 'Leases',
-        href: '/leases',
-        icon: <FileText className="h-4 w-4" />,
+        title: 'Product',
+        href: '/product',
+        icon: <Boxes className="h-4 w-4" />,
       },
       {
-        title: 'Maintenance',
-        href: '/maintenance',
-        icon: <Wrench className="h-4 w-4" />,
+        title: 'Kanban',
+        href: '/kanban',
+        icon: <KanbanSquare className="h-4 w-4" />,
       },
       {
-        title: 'Finance',
-        href: '/finance',
-        icon: <DollarSign className="h-4 w-4" />,
+        title: 'Pro',
+        href: '/pro',
+        icon: <Sparkles className="h-4 w-4" />,
+        children: [
+          {
+            title: 'Exclusive',
+            href: '/pro/exclusive',
+            icon: <Sparkles className="h-4 w-4" />,
+          },
+        ],
       },
-    ],
-  },
-  {
-    label: 'System',
-    items: [
       {
-        title: 'Settings',
-        href: '/settings',
-        icon: <Settings className="h-4 w-4" />,
+        title: 'Account',
+        href: '/account',
+        icon: <CircleUser className="h-4 w-4" />,
+        children: [
+          {
+            title: 'Profile',
+            href: '/dashboard/profile',
+            icon: <User className="h-4 w-4" />,
+          },
+          {
+            title: 'Login',
+            href: '/login',
+            icon: <LogIn className="h-4 w-4" />,
+          },
+        ],
       },
     ],
   },
 ];
+
+const orgs = [
+  {
+    name: 'Create organization',
+    plan: 'Get started',
+    logo: <Plus className="size-4" />,
+  },
+];
+
+const user = {
+  name: 'Felix Nyamweya',
+  email: 'omburaafelix@gmail.com',
+};
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <ConsoleShell navSections={navSections}>{children}</ConsoleShell>;
+  return (
+    <ConsoleShell
+      navSections={navSections}
+      orgs={orgs}
+      user={user}
+      breadcrumbs={[
+        { label: 'Dashboard', href: '/dashboard' },
+        { label: 'Overview' },
+      ]}
+      headerActions={<HeaderActions userName={user.name} />}
+    >
+      {children}
+    </ConsoleShell>
+  );
 }
