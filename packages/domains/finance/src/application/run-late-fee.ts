@@ -25,6 +25,7 @@ export interface RunLateFeeInput {
   readonly capAmountMinorUnits: number | undefined;
   readonly maxOccurrencesPerCharge: number | undefined;
   readonly minOutstandingThresholdMinorUnits: number | undefined;
+  readonly currency: string;
   readonly overdueCharges: readonly OverdueChargeForLateFee[];
   readonly correlationId: string;
   readonly itemIdGenerator: () => string;
@@ -119,7 +120,7 @@ export async function runLateFee(
         ledgerEntryId: item.id,
         clientId: input.clientId,
         amount: item.feeAmountPosted,
-        currency: 'USD', // Should come from policy/config
+        currency: input.currency,
         originalChargeEntryId: item.chargeEntryId,
         leaseId: item.leaseId,
       },

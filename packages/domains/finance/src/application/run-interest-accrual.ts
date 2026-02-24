@@ -22,6 +22,7 @@ export interface RunInterestAccrualInput {
   readonly basis: InterestBasis;
   readonly graceDays: number;
   readonly minimumPrincipalThreshold: number;
+  readonly currency: string;
   readonly overdueCharges: readonly OverdueCharge[];
   readonly correlationId: string;
   readonly basisIdGenerator: () => string;
@@ -122,7 +123,7 @@ export async function runInterestAccrual(
       interestRunId: input.runId,
       clientId: input.clientId,
       totalInterestPosted: totalInterest,
-      currency: 'USD', // Should come from policy/config
+      currency: input.currency,
       periodStart: input.periodStart,
       periodEnd: input.periodEnd,
       entriesCount: basisRows.length,
